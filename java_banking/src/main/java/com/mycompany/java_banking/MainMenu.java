@@ -121,9 +121,9 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel10.setText("Account Number : ");
 
         jButton19.setBackground(new java.awt.Color(255, 255, 255));
-        jButton19.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jButton19.setForeground(new java.awt.Color(0, 0, 0));
-        jButton19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/java_banking/logout.png"))); // NOI18N
+        jButton19.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jButton19.setForeground(new java.awt.Color(0, 51, 153));
+        jButton19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/java_banking/logout (1).png"))); // NOI18N
         jButton19.setText("LogOut");
         jButton19.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton19.addActionListener(new java.awt.event.ActionListener() {
@@ -184,7 +184,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton17)
                     .addComponent(jButton18))
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addGap(32, 32, 32)
