@@ -69,7 +69,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("Number : ");
+        jLabel8.setText("Number ");
 
         jButton13.setBackground(new java.awt.Color(0, 51, 204));
         jButton13.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
