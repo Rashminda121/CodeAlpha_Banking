@@ -80,7 +80,6 @@ public class Login extends javax.swing.JFrame {
         jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
         jPasswordField1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jPasswordField1.setForeground(new java.awt.Color(0, 51, 102));
-        jPasswordField1.setText("password");
 
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
