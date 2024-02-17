@@ -248,10 +248,13 @@ public class Login extends javax.swing.JFrame {
                 ResultSet rs = pstmt.executeQuery();
 
                 if (rs.next()) {
-                    SwingUtilities.invokeLater(() -> {
-                        new MainMenu().setVisible(true);
+                    try{
+                        new MainMenu(rs.getInt(1)).setVisible(true);
                         dispose();
-                    });
+                    }catch(Exception ex){
+                        ex.printStackTrace();
+                    }
+                    
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Invalid Account Name or Pin!");
