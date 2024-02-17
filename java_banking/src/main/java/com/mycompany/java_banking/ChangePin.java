@@ -120,6 +120,11 @@ public class ChangePin extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 51, 153));
         jLabel13.setText("< Back");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
 
         txtPin2.setBackground(new java.awt.Color(255, 255, 255));
         txtPin2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -252,6 +257,12 @@ public class ChangePin extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        
+        new MainMenu(myAccNum).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel13MouseClicked
 
     /**
      * @param args the command line arguments
