@@ -127,7 +127,7 @@
                               <Component id="txtName" max="32767" attributes="0"/>
                               <Component id="txtFname" alignment="0" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="txtAcc" min="-2" pref="181" max="-2" attributes="0"/>
+                              <Component id="txtAccNo" min="-2" pref="181" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -138,7 +138,7 @@
                               <Component id="jLabel8" min="-2" pref="105" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jLabel13" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSign" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="btnSubmit" min="-2" pref="86" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -150,12 +150,12 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtOccupation" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                          <Component id="comboEducation" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtEducation" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="txtPin" alignment="1" min="-2" pref="160" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtPhone" max="32767" attributes="0"/>
-                          <Component id="dateChooser" min="-2" pref="160" max="-2" attributes="0"/>
+                          <Component id="txtDate" min="-2" pref="160" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -177,7 +177,7 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="comboEducation" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtEducation" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel5" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -193,13 +193,13 @@
                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel8" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="dateChooser" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtDate" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="txtAcc" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtAccNo" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -224,7 +224,7 @@
                       <Component id="btnClear" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtSign" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="40" max="32767" attributes="0"/>
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -265,7 +265,7 @@
             <Property name="text" type="java.lang.String" value="First Name:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtAcc">
+        <Component class="javax.swing.JTextField" name="txtAccNo">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -278,7 +278,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAccActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAccNoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtName">
@@ -340,7 +340,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPinActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="comboEducation">
+        <Component class="javax.swing.JComboBox" name="txtEducation">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -477,7 +477,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="com.toedter.calendar.JDateChooser" name="dateChooser">
+        <Component class="com.toedter.calendar.JDateChooser" name="txtDate">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -529,7 +529,7 @@
             <Property name="text" type="java.lang.String" value="Sign Up Form"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel13">
+        <Component class="javax.swing.JLabel" name="txtSign">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Century Gothic" size="16" style="1"/>

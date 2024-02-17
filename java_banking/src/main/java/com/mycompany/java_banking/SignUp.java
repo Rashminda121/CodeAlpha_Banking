@@ -33,12 +33,12 @@ public class SignUp extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtAcc = new javax.swing.JTextField();
+        txtAccNo = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
         txtFname = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtPin = new javax.swing.JTextField();
-        comboEducation = new javax.swing.JComboBox<>();
+        txtEducation = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtOccupation = new javax.swing.JTextField();
@@ -48,11 +48,11 @@ public class SignUp extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtArea = new javax.swing.JTextArea();
-        dateChooser = new com.toedter.calendar.JDateChooser();
+        txtDate = new com.toedter.calendar.JDateChooser();
         btnSubmit = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        txtSign = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -104,12 +104,12 @@ public class SignUp extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 51, 153));
         jLabel4.setText("First Name:");
 
-        txtAcc.setBackground(new java.awt.Color(255, 255, 255));
-        txtAcc.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
-        txtAcc.setForeground(new java.awt.Color(0, 51, 102));
-        txtAcc.addActionListener(new java.awt.event.ActionListener() {
+        txtAccNo.setBackground(new java.awt.Color(255, 255, 255));
+        txtAccNo.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        txtAccNo.setForeground(new java.awt.Color(0, 51, 102));
+        txtAccNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAccActionPerformed(evt);
+                txtAccNoActionPerformed(evt);
             }
         });
 
@@ -144,10 +144,10 @@ public class SignUp extends javax.swing.JFrame {
             }
         });
 
-        comboEducation.setBackground(new java.awt.Color(255, 255, 255));
-        comboEducation.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
-        comboEducation.setForeground(new java.awt.Color(0, 51, 153));
-        comboEducation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Uneducated", "Diploma", "Undergraduate", "Graduate", "Masters", "PHD" }));
+        txtEducation.setBackground(new java.awt.Color(255, 255, 255));
+        txtEducation.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        txtEducation.setForeground(new java.awt.Color(0, 51, 153));
+        txtEducation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Uneducated", "Diploma", "Undergraduate", "Graduate", "Masters", "PHD" }));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 51, 153));
@@ -194,8 +194,8 @@ public class SignUp extends javax.swing.JFrame {
         txtArea.setRows(5);
         jScrollPane1.setViewportView(txtArea);
 
-        dateChooser.setBackground(new java.awt.Color(255, 255, 255));
-        dateChooser.setForeground(new java.awt.Color(0, 51, 153));
+        txtDate.setBackground(new java.awt.Color(255, 255, 255));
+        txtDate.setForeground(new java.awt.Color(0, 51, 153));
 
         btnSubmit.setBackground(new java.awt.Color(0, 51, 153));
         btnSubmit.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
@@ -216,9 +216,9 @@ public class SignUp extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(0, 51, 153));
         jLabel11.setText("Sign Up Form");
 
-        jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 51, 153));
-        jLabel13.setText("Have an Accoont? Sign In");
+        txtSign.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        txtSign.setForeground(new java.awt.Color(0, 51, 153));
+        txtSign.setText("Have an Accoont? Sign In");
 
         jPanel3.setBackground(new java.awt.Color(0, 51, 153));
 
@@ -255,7 +255,7 @@ public class SignUp extends javax.swing.JFrame {
                             .addComponent(txtName)
                             .addComponent(txtFname, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(txtAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtAccNo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(60, 60, 60)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -263,7 +263,7 @@ public class SignUp extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel13)
+                    .addComponent(txtSign)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -273,11 +273,11 @@ public class SignUp extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtOccupation, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(comboEducation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtEducation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtPin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txtPhone)
-                        .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -294,7 +294,7 @@ public class SignUp extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboEducation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEducation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -307,11 +307,11 @@ public class SignUp extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtAccNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -329,7 +329,7 @@ public class SignUp extends javax.swing.JFrame {
                     .addComponent(btnSubmit)
                     .addComponent(btnClear))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel13)
+                .addComponent(txtSign)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -353,9 +353,9 @@ public class SignUp extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAccActionPerformed
+    private void txtAccNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAccNoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtAccActionPerformed
+    }//GEN-LAST:event_txtAccNoActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
@@ -419,13 +419,10 @@ public class SignUp extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JComboBox<String> comboEducation;
-    private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -438,12 +435,15 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtAcc;
+    private javax.swing.JTextField txtAccNo;
     private javax.swing.JTextArea txtArea;
+    private com.toedter.calendar.JDateChooser txtDate;
+    private javax.swing.JComboBox<String> txtEducation;
     private javax.swing.JTextField txtFname;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtOccupation;
     private javax.swing.JTextField txtPhone;
     private javax.swing.JTextField txtPin;
+    private javax.swing.JLabel txtSign;
     // End of variables declaration//GEN-END:variables
 }
