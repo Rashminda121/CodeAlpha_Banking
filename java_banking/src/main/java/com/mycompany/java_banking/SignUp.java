@@ -249,6 +249,11 @@ public class SignUp extends javax.swing.JFrame {
         txtSign.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         txtSign.setForeground(new java.awt.Color(0, 51, 153));
         txtSign.setText("Have an Accoont? Sign In");
+        txtSign.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtSignMouseClicked(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(0, 51, 153));
 
@@ -493,6 +498,11 @@ public class SignUp extends javax.swing.JFrame {
     private void btnClearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClearMouseClicked
         clearText();
     }//GEN-LAST:event_btnClearMouseClicked
+
+    private void txtSignMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSignMouseClicked
+        new Login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_txtSignMouseClicked
 
     /**
      * @param args the command line arguments
