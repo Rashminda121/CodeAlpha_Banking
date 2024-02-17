@@ -53,7 +53,7 @@ public class Withdraw extends javax.swing.JFrame {
                 if (rs1.next()) {
                     try{
                       oldBal=  rs1.getInt(9);
-                      txtBalance.setText(""+oldBal);
+                      txtBalance.setText("Rs "+oldBal);
                        
                     }catch(Exception ex){
                         ex.printStackTrace();
