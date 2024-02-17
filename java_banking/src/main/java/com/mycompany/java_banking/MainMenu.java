@@ -16,6 +16,13 @@ public class MainMenu extends javax.swing.JFrame {
     public MainMenu() {
         initComponents();
     }
+    
+    int myAccNum;
+    public MainMenu(int AccNum) {
+        initComponents();
+        myAccNum = AccNum;
+        txtNum.setText(""+myAccNum);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,15 +38,16 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
+        txtNum = new javax.swing.JLabel();
+        btnDeposit = new javax.swing.JButton();
+        btnWithdraw = new javax.swing.JButton();
+        btnBalance = new javax.swing.JButton();
+        btnFastcash = new javax.swing.JButton();
+        btnMini = new javax.swing.JButton();
+        btnChangePin = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jButton19 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -93,56 +101,62 @@ public class MainMenu extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("Number ");
+        txtNum.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        txtNum.setForeground(new java.awt.Color(0, 0, 153));
+        txtNum.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtNum.setText("No");
 
-        jButton13.setBackground(new java.awt.Color(0, 51, 204));
-        jButton13.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
-        jButton13.setForeground(new java.awt.Color(255, 255, 255));
-        jButton13.setText("Deposit");
+        btnDeposit.setBackground(new java.awt.Color(0, 51, 204));
+        btnDeposit.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
+        btnDeposit.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeposit.setText("Deposit");
+        btnDeposit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDepositActionPerformed(evt);
+            }
+        });
 
-        jButton14.setBackground(new java.awt.Color(0, 51, 204));
-        jButton14.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
-        jButton14.setForeground(new java.awt.Color(255, 255, 255));
-        jButton14.setText("Withdraw");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        btnWithdraw.setBackground(new java.awt.Color(0, 51, 204));
+        btnWithdraw.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
+        btnWithdraw.setForeground(new java.awt.Color(255, 255, 255));
+        btnWithdraw.setText("Withdraw");
+        btnWithdraw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton15.setBackground(new java.awt.Color(0, 51, 204));
-        jButton15.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
-        jButton15.setForeground(new java.awt.Color(255, 255, 255));
-        jButton15.setText("Balance");
+        btnBalance.setBackground(new java.awt.Color(0, 51, 204));
+        btnBalance.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
+        btnBalance.setForeground(new java.awt.Color(255, 255, 255));
+        btnBalance.setText("Balance");
 
-        jButton16.setBackground(new java.awt.Color(0, 51, 204));
-        jButton16.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
-        jButton16.setForeground(new java.awt.Color(255, 255, 255));
-        jButton16.setText("Fast Cash");
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
+        btnFastcash.setBackground(new java.awt.Color(0, 51, 204));
+        btnFastcash.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
+        btnFastcash.setForeground(new java.awt.Color(255, 255, 255));
+        btnFastcash.setText("Fast Cash");
+        btnFastcash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        jButton17.setBackground(new java.awt.Color(0, 51, 204));
-        jButton17.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
-        jButton17.setForeground(new java.awt.Color(255, 255, 255));
-        jButton17.setText("Mini Statement");
+        btnMini.setBackground(new java.awt.Color(0, 51, 204));
+        btnMini.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
+        btnMini.setForeground(new java.awt.Color(255, 255, 255));
+        btnMini.setText("Mini Statement");
 
-        jButton18.setBackground(new java.awt.Color(0, 51, 204));
-        jButton18.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
-        jButton18.setForeground(new java.awt.Color(255, 255, 255));
-        jButton18.setText("Change Pin");
-        jButton18.addActionListener(new java.awt.event.ActionListener() {
+        btnChangePin.setBackground(new java.awt.Color(0, 51, 204));
+        btnChangePin.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
+        btnChangePin.setForeground(new java.awt.Color(255, 255, 255));
+        btnChangePin.setText("Change Pin");
+        btnChangePin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton18jButton4ActionPerformed(evt);
+                btnChangePinjButton4ActionPerformed(evt);
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Account Number : ");
 
@@ -157,34 +171,54 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setPreferredSize(new java.awt.Dimension(100, 3));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 3, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(214, 214, 214)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addGap(23, 23, 23)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNum, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton17))
-                .addGap(172, 172, 172)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMini))
+                        .addGap(172, 172, 172)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnChangePin, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnWithdraw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnFastcash, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(202, 202, 202)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(60, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addGap(24, 24, 24)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(441, Short.MAX_VALUE)))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,26 +228,25 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addComponent(jButton19))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel8)))
-                .addGap(40, 40, 40)
+                        .addGap(45, 45, 45)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(txtNum))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton13)
-                    .addComponent(jButton14))
+                    .addComponent(btnDeposit)
+                    .addComponent(btnWithdraw))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton15)
-                    .addComponent(jButton16))
+                    .addComponent(btnBalance)
+                    .addComponent(btnFastcash))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton17)
-                    .addComponent(jButton18))
-                .addContainerGap(104, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addGap(32, 32, 32)
-                    .addComponent(jLabel10)
-                    .addContainerGap(285, Short.MAX_VALUE)))
+                    .addComponent(btnMini)
+                    .addComponent(btnChangePin))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(0, 51, 153));
@@ -259,9 +292,9 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton18jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18jButton4ActionPerformed
+    private void btnChangePinjButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePinjButton4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton18jButton4ActionPerformed
+    }//GEN-LAST:event_btnChangePinjButton4ActionPerformed
 
     private void jButton19jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19jButton2ActionPerformed
         // TODO add your handling code here:
@@ -270,6 +303,11 @@ public class MainMenu extends javax.swing.JFrame {
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         this.dispose();
     }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void btnDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositActionPerformed
+        new Deposit(myAccNum).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDepositActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,20 +345,21 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
+    private javax.swing.JButton btnBalance;
+    private javax.swing.JButton btnChangePin;
+    private javax.swing.JButton btnDeposit;
+    private javax.swing.JButton btnFastcash;
+    private javax.swing.JButton btnMini;
+    private javax.swing.JButton btnWithdraw;
     private javax.swing.JButton jButton19;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel txtNum;
     // End of variables declaration//GEN-END:variables
 }
