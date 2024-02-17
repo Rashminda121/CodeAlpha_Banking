@@ -130,6 +130,11 @@ public class MainMenu extends javax.swing.JFrame {
         btnBalance.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
         btnBalance.setForeground(new java.awt.Color(255, 255, 255));
         btnBalance.setText("Balance");
+        btnBalance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBalanceActionPerformed(evt);
+            }
+        });
 
         btnFastcash.setBackground(new java.awt.Color(0, 51, 204));
         btnFastcash.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
@@ -289,11 +294,13 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        new Withdraw(myAccNum).setVisible(true);
+        this.dispose();    
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnChangePinjButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePinjButton4ActionPerformed
-        // TODO add your handling code here:
+        new ChangePin(myAccNum).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnChangePinjButton4ActionPerformed
 
     private void jButton19jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19jButton2ActionPerformed
@@ -308,6 +315,11 @@ public class MainMenu extends javax.swing.JFrame {
         new Deposit(myAccNum).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnDepositActionPerformed
+
+    private void btnBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBalanceActionPerformed
+        new Balances(myAccNum).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBalanceActionPerformed
 
     /**
      * @param args the command line arguments
