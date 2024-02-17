@@ -4,6 +4,15 @@
  */
 package com.mycompany.java_banking;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Rashminda
@@ -34,8 +43,8 @@ public class Login extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         txtPin = new javax.swing.JPasswordField();
-        txtAccNo = new javax.swing.JTextField();
-        jButton13 = new javax.swing.JButton();
+        txtAccName = new javax.swing.JTextField();
+        btnLogin = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
 
@@ -89,7 +98,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 51, 153));
-        jLabel11.setText("Acc No: ");
+        jLabel11.setText("Acc Name: ");
 
         jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 51, 153));
@@ -99,14 +108,24 @@ public class Login extends javax.swing.JFrame {
         txtPin.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtPin.setForeground(new java.awt.Color(0, 51, 102));
 
-        txtAccNo.setBackground(new java.awt.Color(255, 255, 255));
-        txtAccNo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtAccNo.setForeground(new java.awt.Color(0, 51, 153));
+        txtAccName.setBackground(new java.awt.Color(255, 255, 255));
+        txtAccName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtAccName.setForeground(new java.awt.Color(0, 51, 153));
 
-        jButton13.setBackground(new java.awt.Color(0, 51, 153));
-        jButton13.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jButton13.setForeground(new java.awt.Color(255, 255, 255));
-        jButton13.setText("Login");
+        btnLogin.setBackground(new java.awt.Color(0, 51, 153));
+        btnLogin.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogin.setText("Login");
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLoginMouseClicked(evt);
+            }
+        });
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         jButton14.setBackground(new java.awt.Color(255, 51, 51));
         jButton14.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -138,10 +157,10 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel11))
                         .addGap(36, 36, 36)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtAccNo)
+                            .addComponent(txtAccName)
                             .addComponent(txtPin, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -157,14 +176,14 @@ public class Login extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel11)
-                    .addComponent(txtAccNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAccName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton13)
+                    .addComponent(btnLogin)
                     .addComponent(jButton14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel13)
@@ -200,6 +219,58 @@ public class Login extends javax.swing.JFrame {
     private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
          this.dispose();
     }//GEN-LAST:event_jLabel14MouseClicked
+
+    Connection conn= null;
+    PreparedStatement ps=null;
+    ResultSet rs=null;
+    Statement st=null;
+    
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
+        
+    }//GEN-LAST:event_btnLoginMouseClicked
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        
+        if (txtAccName.getText().isEmpty() || txtPin.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Missing Information!");
+        } else {
+            String accName = txtAccName.getText();
+            int pin = Integer.valueOf(txtPin.getText());
+            String qry = "SELECT * FROM account WHERE accname = ? AND pin = ?";
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+
+                PreparedStatement pstmt = conn.prepareStatement(qry);
+                pstmt.setString(1, accName);
+                pstmt.setInt(2, pin);
+                ResultSet rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    SwingUtilities.invokeLater(() -> {
+                        new MainMenu().setVisible(true);
+                        dispose();
+                    });
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid Account Name or Pin!");
+                }
+            } catch (ClassNotFoundException | SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error: Unable to connect to database \n" + ex);
+            } finally {
+                try {
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Something Went Wrong  \n" + ex);
+                }
+            }
+        }
+
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,7 +308,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton13;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JButton jButton14;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -247,7 +318,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtAccNo;
+    private javax.swing.JTextField txtAccName;
     private javax.swing.JPasswordField txtPin;
     // End of variables declaration//GEN-END:variables
 }
