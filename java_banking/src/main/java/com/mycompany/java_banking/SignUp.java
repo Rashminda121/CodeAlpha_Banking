@@ -4,6 +4,13 @@
  */
 package com.mycompany.java_banking;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import java.sql.DriverManager;
+
 /**
  *
  * @author Rashminda
@@ -38,7 +45,7 @@ public class SignUp extends javax.swing.JFrame {
         txtFname = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtPin = new javax.swing.JTextField();
-        txtEducation = new javax.swing.JComboBox<>();
+        txtEdu = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtOccupation = new javax.swing.JTextField();
@@ -47,8 +54,8 @@ public class SignUp extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtArea = new javax.swing.JTextArea();
-        txtDate = new com.toedter.calendar.JDateChooser();
+        txtAdd = new javax.swing.JTextArea();
+        txtDob = new com.toedter.calendar.JDateChooser();
         btnSubmit = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
@@ -67,6 +74,11 @@ public class SignUp extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("X");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,10 +156,10 @@ public class SignUp extends javax.swing.JFrame {
             }
         });
 
-        txtEducation.setBackground(new java.awt.Color(255, 255, 255));
-        txtEducation.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
-        txtEducation.setForeground(new java.awt.Color(0, 51, 153));
-        txtEducation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Uneducated", "Diploma", "Undergraduate", "Graduate", "Masters", "PHD" }));
+        txtEdu.setBackground(new java.awt.Color(255, 255, 255));
+        txtEdu.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
+        txtEdu.setForeground(new java.awt.Color(0, 51, 153));
+        txtEdu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Uneducated", "Diploma", "Undergraduate", "Graduate", "Masters", "PHD" }));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 51, 153));
@@ -187,20 +199,25 @@ public class SignUp extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(0, 51, 153));
         jLabel10.setText("Address:");
 
-        txtArea.setBackground(new java.awt.Color(255, 255, 255));
-        txtArea.setColumns(20);
-        txtArea.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtArea.setForeground(new java.awt.Color(0, 51, 153));
-        txtArea.setRows(5);
-        jScrollPane1.setViewportView(txtArea);
+        txtAdd.setBackground(new java.awt.Color(255, 255, 255));
+        txtAdd.setColumns(20);
+        txtAdd.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtAdd.setForeground(new java.awt.Color(0, 51, 153));
+        txtAdd.setRows(5);
+        jScrollPane1.setViewportView(txtAdd);
 
-        txtDate.setBackground(new java.awt.Color(255, 255, 255));
-        txtDate.setForeground(new java.awt.Color(0, 51, 153));
+        txtDob.setBackground(new java.awt.Color(255, 255, 255));
+        txtDob.setForeground(new java.awt.Color(0, 51, 153));
 
         btnSubmit.setBackground(new java.awt.Color(0, 51, 153));
         btnSubmit.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         btnSubmit.setForeground(new java.awt.Color(255, 255, 255));
         btnSubmit.setText("Submit");
+        btnSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSubmitMouseClicked(evt);
+            }
+        });
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubmitActionPerformed(evt);
@@ -273,11 +290,11 @@ public class SignUp extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtOccupation, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtEducation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtEdu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtPin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txtPhone)
-                        .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDob, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -294,7 +311,7 @@ public class SignUp extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtEducation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEdu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -307,7 +324,7 @@ public class SignUp extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtDob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -381,6 +398,59 @@ public class SignUp extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSubmitActionPerformed
 
+    Connection conn= null;
+    PreparedStatement ps=null;
+    ResultSet rs=null;
+    Statement st=null;
+    
+    String dbuser="root";
+    String dbpass="12345678";
+    
+    private void btnSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseClicked
+        
+        if(txtAccNo.getText().isEmpty() || txtName.getText().isEmpty() || txtFname.getText().isEmpty() || txtPhone.getText().isEmpty()|| txtAdd.getText().isEmpty()|| txtOccupation.getText().isEmpty() || txtPin.getText().isEmpty()){
+            
+            JOptionPane.showMessageDialog(this,"Missing Information !");
+            
+        }else{
+            try{
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","12345678");
+                
+                String qry="insert into account values(?,?,?,?,?,?,?,?,?)";
+                PreparedStatement Add=conn.prepareStatement(qry);
+                
+                Add.setInt(1,Integer.valueOf(txtAccNo.getText()));
+                Add.setString(2, txtName.getText());
+                Add.setString(3, txtFname.getText());
+                Add.setString(4, txtDob.getDate().toString());
+                Add.setString(5, txtPhone.getText());
+                Add.setString(6, txtAdd.getText());
+                Add.setString(7, txtEdu.getSelectedItem().toString());
+                Add.setString(8, txtOccupation.getText());
+                Add.setInt(9, 0);
+                Add.setInt(10, Integer.valueOf(txtPin.getText()));
+                
+                int row=Add.executeUpdate();
+                
+                JOptionPane.showMessageDialog(this,"Account Saved!");
+                conn.close();
+                
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnSubmitMouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        this.dispose();
+    }//GEN-LAST:event_jLabel12MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -436,9 +506,9 @@ public class SignUp extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtAccNo;
-    private javax.swing.JTextArea txtArea;
-    private com.toedter.calendar.JDateChooser txtDate;
-    private javax.swing.JComboBox<String> txtEducation;
+    private javax.swing.JTextArea txtAdd;
+    private com.toedter.calendar.JDateChooser txtDob;
+    private javax.swing.JComboBox<String> txtEdu;
     private javax.swing.JTextField txtFname;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtOccupation;
