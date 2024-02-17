@@ -1,0 +1,22 @@
+account table
+
+CREATE TABLE `atmdb`.`account` (
+  `accno` INT NOT NULL AUTO_INCREMENT,
+  `accname` VARCHAR(100) NULL,
+  `fname` VARCHAR(100) NULL,
+  `dob` VARCHAR(45) NULL,
+  `phone` VARCHAR(45) NULL,
+  `address` VARCHAR(300) NULL,
+  `education` VARCHAR(45) NULL,
+  `occupation` VARCHAR(45) NULL,
+  `balance` INT NULL,
+  PRIMARY KEY (`accno`));
+
+transaction table
+
+CREATE TABLE `atmdb`.`transaction` (
+  `tid` INT NOT NULL,
+  `accnum` INT NULL,
+  `type` INT NULL,
+  `tdate` VARCHAR(45) NULL,
+  PRIMARY KEY (`tid`));

@@ -95,6 +95,7 @@ public class MiniStatement extends javax.swing.JFrame {
         );
 
         jTable1.setBackground(new java.awt.Color(255, 255, 255));
+        jTable1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jTable1.setForeground(new java.awt.Color(0, 51, 153));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
