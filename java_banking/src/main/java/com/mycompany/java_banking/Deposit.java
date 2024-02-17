@@ -52,6 +52,7 @@ public class Deposit extends javax.swing.JFrame {
                 if (rs1.next()) {
                     try{
                       oldBal=  rs1.getInt(9);
+                      txtBal.setText("Rs "+oldBal );
                        
                     }catch(Exception ex){
                         ex.printStackTrace();
@@ -99,7 +100,7 @@ public class Deposit extends javax.swing.JFrame {
         txtNum = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        txtBal = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -219,9 +220,9 @@ public class Deposit extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(0, 51, 153));
         jLabel15.setText("Balance:");
 
-        jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 51, 153));
-        jLabel16.setText("Amount");
+        txtBal.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        txtBal.setForeground(new java.awt.Color(0, 51, 153));
+        txtBal.setText("Amount");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -240,7 +241,7 @@ public class Deposit extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel15)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel16)
+                                .addComponent(txtBal)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
@@ -277,7 +278,7 @@ public class Deposit extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jLabel16))
+                    .addComponent(txtBal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -352,6 +353,7 @@ public class Deposit extends javax.swing.JFrame {
                 
                 if(ps.executeUpdate()==1){
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
+                    getBalance();
                     txtAmount.setText("");
                 }else{
                     JOptionPane.showMessageDialog(this, "Missing Information!");
@@ -412,13 +414,13 @@ public class Deposit extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField txtAmount;
+    private javax.swing.JLabel txtBal;
     private javax.swing.JLabel txtNum;
     // End of variables declaration//GEN-END:variables
 }
