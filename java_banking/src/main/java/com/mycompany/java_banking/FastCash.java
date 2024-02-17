@@ -4,6 +4,14 @@
  */
 package com.mycompany.java_banking;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Rashminda
@@ -16,6 +24,58 @@ public class FastCash extends javax.swing.JFrame {
     public FastCash() {
         initComponents();
     }
+    
+    int myAccNum;
+    public FastCash(int AccNum) {
+        initComponents();
+        myAccNum = AccNum;
+        getBalance();
+        
+    }
+    
+    Connection conn= null;
+    PreparedStatement ps=null;
+    ResultSet rs=null, rs1=null;
+    Statement st=null;
+    
+    int oldBal=0;
+    
+    private void getBalance(){
+        
+            String qry = "SELECT * FROM account WHERE accno = '"+myAccNum+"' ";
+
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+                st=conn.createStatement();
+                rs1=st.executeQuery(qry);
+                if (rs1.next()) {
+                    try{
+                      oldBal=  rs1.getInt(9);
+                      txtBal.setText("Rs "+oldBal);
+                       
+                    }catch(Exception ex){
+                        ex.printStackTrace();
+                    }
+                    
+                    
+                } else {
+                    JOptionPane.showMessageDialog(this, "Something Went Wrong!");
+                }
+            } catch (ClassNotFoundException | SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error: Unable to connect to database \n" + ex);
+            } finally {
+                try {
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(this, "Something Went Wrong  \n" + ex);
+                }
+            }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,15 +93,17 @@ public class FastCash extends javax.swing.JFrame {
         jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
         jButton18 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        txtBal = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -49,6 +111,11 @@ public class FastCash extends javax.swing.JFrame {
         jButton13.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
         jButton13.setForeground(new java.awt.Color(255, 255, 255));
         jButton13.setText("Rs 100");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jButton14.setBackground(new java.awt.Color(0, 51, 204));
         jButton14.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
@@ -64,6 +131,11 @@ public class FastCash extends javax.swing.JFrame {
         jButton15.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
         jButton15.setForeground(new java.awt.Color(255, 255, 255));
         jButton15.setText("Rs 1000");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
 
         jButton16.setBackground(new java.awt.Color(0, 51, 204));
         jButton16.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
@@ -78,7 +150,12 @@ public class FastCash extends javax.swing.JFrame {
         jButton17.setBackground(new java.awt.Color(0, 51, 204));
         jButton17.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
         jButton17.setForeground(new java.awt.Color(255, 255, 255));
-        jButton17.setText("Rs 3000");
+        jButton17.setText("Rs 5000");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
 
         jButton18.setBackground(new java.awt.Color(0, 51, 204));
         jButton18.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
@@ -90,18 +167,6 @@ public class FastCash extends javax.swing.JFrame {
             }
         });
 
-        jButton19.setBackground(new java.awt.Color(255, 255, 255));
-        jButton19.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jButton19.setForeground(new java.awt.Color(0, 51, 153));
-        jButton19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/java_banking/logout (1).png"))); // NOI18N
-        jButton19.setText("LogOut");
-        jButton19.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton19jButton2ActionPerformed(evt);
-            }
-        });
-
         jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 51, 153));
         jLabel11.setText("Fast Cash");
@@ -109,17 +174,26 @@ public class FastCash extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 51, 153));
         jLabel13.setText("< Back");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 51, 153));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Balance");
+
+        txtBal.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        txtBal.setForeground(new java.awt.Color(0, 0, 0));
+        txtBal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtBal.setText("balance");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(131, 131, 131)
-                .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -138,15 +212,24 @@ public class FastCash extends javax.swing.JFrame {
                         .addGap(313, 313, 313)
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(103, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(145, 145, 145)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jButton19))
-                .addGap(58, 58, 58)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBal)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton13)
                     .addComponent(jButton14))
@@ -158,7 +241,7 @@ public class FastCash extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton17)
                     .addComponent(jButton18))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addGap(16, 16, 16))
         );
@@ -172,6 +255,11 @@ public class FastCash extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("X");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -229,23 +317,183 @@ public class FastCash extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton19jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton19jButton2ActionPerformed
-
     private void jButton18jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18jButton4ActionPerformed
-        // TODO add your handling code here:
+        if (oldBal < 10000) {
+
+            JOptionPane.showMessageDialog(this, "No Enough Balance!");
+
+        } else {
+            try {
+                String qry = "update account set balance=? where accno=? ";
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+                PreparedStatement ps = conn.prepareStatement(qry);
+                ps.setInt(1, oldBal - 10000);
+                ps.setInt(2, myAccNum);
+
+                if (ps.executeUpdate() == 1) {
+                    JOptionPane.showMessageDialog(this, "Balance Updated!");
+                    getBalance();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Missing Information!");
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_jButton18jButton4ActionPerformed
 
     private void jButton16jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16jButton4ActionPerformed
-        // TODO add your handling code here:
+        
+        if (oldBal < 2000) {
+
+            JOptionPane.showMessageDialog(this, "No Enough Balance!");
+
+        } else {
+            try {
+                String qry = "update account set balance=? where accno=? ";
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+                PreparedStatement ps = conn.prepareStatement(qry);
+                ps.setInt(1, oldBal - 2000);
+                ps.setInt(2, myAccNum);
+
+                if (ps.executeUpdate() == 1) {
+                    JOptionPane.showMessageDialog(this, "Balance Updated!");
+                    getBalance();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Missing Information!");
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_jButton16jButton4ActionPerformed
 
     private void jButton14jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14jButton2ActionPerformed
-        // TODO add your handling code here:
+        
+        if (oldBal < 500) {
+
+            JOptionPane.showMessageDialog(this, "No Enough Balance!");
+
+        } else {
+            try {
+                String qry = "update account set balance=? where accno=? ";
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+                PreparedStatement ps = conn.prepareStatement(qry);
+                ps.setInt(1, oldBal - 500);
+                ps.setInt(2, myAccNum);
+
+                if (ps.executeUpdate() == 1) {
+                    JOptionPane.showMessageDialog(this, "Balance Updated!");
+                    getBalance();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Missing Information!");
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        
     }//GEN-LAST:event_jButton14jButton2ActionPerformed
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        System.exit(1);
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        new MainMenu(myAccNum).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+
+        if (oldBal < 100) {
+
+            JOptionPane.showMessageDialog(this, "No Enough Balance!");
+
+        } else {
+            try {
+                String qry = "update account set balance=? where accno=? ";
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+                PreparedStatement ps = conn.prepareStatement(qry);
+                ps.setInt(1, oldBal - 100);
+                ps.setInt(2, myAccNum);
+
+                if (ps.executeUpdate() == 1) {
+                    JOptionPane.showMessageDialog(this, "Balance Updated!");
+                    getBalance();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Missing Information!");
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        if (oldBal < 1000) {
+
+            JOptionPane.showMessageDialog(this, "No Enough Balance!");
+
+        } else {
+            try {
+                String qry = "update account set balance=? where accno=? ";
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+                PreparedStatement ps = conn.prepareStatement(qry);
+                ps.setInt(1, oldBal - 1000);
+                ps.setInt(2, myAccNum);
+
+                if (ps.executeUpdate() == 1) {
+                    JOptionPane.showMessageDialog(this, "Balance Updated!");
+                    getBalance();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Missing Information!");
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        if (oldBal < 5000) {
+
+            JOptionPane.showMessageDialog(this, "No Enough Balance!");
+
+        } else {
+            try {
+                String qry = "update account set balance=? where accno=? ";
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+                PreparedStatement ps = conn.prepareStatement(qry);
+                ps.setInt(1, oldBal - 5000);
+                ps.setInt(2, myAccNum);
+
+                if (ps.executeUpdate() == 1) {
+                    JOptionPane.showMessageDialog(this, "Balance Updated!");
+                    getBalance();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Missing Information!");
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButton17ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,13 +537,14 @@ public class FastCash extends javax.swing.JFrame {
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel txtBal;
     // End of variables declaration//GEN-END:variables
 }
