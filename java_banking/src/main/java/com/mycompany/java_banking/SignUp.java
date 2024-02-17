@@ -10,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.sql.DriverManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 /**
  *
@@ -160,6 +163,11 @@ public class SignUp extends javax.swing.JFrame {
         txtEdu.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         txtEdu.setForeground(new java.awt.Color(0, 51, 153));
         txtEdu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Uneducated", "Diploma", "Undergraduate", "Graduate", "Masters", "PHD" }));
+        txtEdu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEduActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 51, 153));
@@ -228,6 +236,11 @@ public class SignUp extends javax.swing.JFrame {
         btnClear.setFont(new java.awt.Font("Century Gothic", 0, 16)); // NOI18N
         btnClear.setForeground(new java.awt.Color(255, 255, 255));
         btnClear.setText("Clear");
+        btnClear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnClearMouseClicked(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 51, 153));
@@ -398,6 +411,25 @@ public class SignUp extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSubmitActionPerformed
 
+    private void clearText(){
+        txtAccNo.setText("");
+        txtName.setText("");
+        txtFname.setText("");
+        txtPhone.setText("");
+        txtAdd.setText("");
+        txtOccupation.setText("");
+        txtPin.setText("");
+        
+        LocalDate currentDate = LocalDate.now();
+        Date date = Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        txtDob.setDate(date);
+        
+        txtEdu.setSelectedIndex(1);
+        
+        
+        
+    }
+    
     Connection conn= null;
     PreparedStatement ps=null;
     ResultSet rs=null;
@@ -417,7 +449,7 @@ public class SignUp extends javax.swing.JFrame {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb","root","12345678");
                 
-                String qry="insert into account values(?,?,?,?,?,?,?,?,?)";
+                String qry="insert into account values(?,?,?,?,?,?,?,?,?,?)";
                 PreparedStatement Add=conn.prepareStatement(qry);
                 
                 Add.setInt(1,Integer.valueOf(txtAccNo.getText()));
@@ -433,11 +465,14 @@ public class SignUp extends javax.swing.JFrame {
                 
                 int row=Add.executeUpdate();
                 
-                JOptionPane.showMessageDialog(this,"Account Saved!");
+                JOptionPane.showMessageDialog(this,"Account Added Succesfully!");
+ 
                 conn.close();
+                clearText();
                 
             }catch(Exception ex){
-                ex.printStackTrace();
+                
+                JOptionPane.showMessageDialog(this,"Something Went Wrong! \n"+ex);
             }
         }
         
@@ -450,6 +485,14 @@ public class SignUp extends javax.swing.JFrame {
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         this.dispose();
     }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void txtEduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEduActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEduActionPerformed
+
+    private void btnClearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClearMouseClicked
+        clearText();
+    }//GEN-LAST:event_btnClearMouseClicked
 
     /**
      * @param args the command line arguments
