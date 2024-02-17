@@ -54,6 +54,11 @@ public class MainMenu extends javax.swing.JFrame {
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 153));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 20)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -320,6 +325,10 @@ public class MainMenu extends javax.swing.JFrame {
         new Balances(myAccNum).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBalanceActionPerformed
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        System.exit(1);
+    }//GEN-LAST:event_jPanel1MouseClicked
 
     /**
      * @param args the command line arguments

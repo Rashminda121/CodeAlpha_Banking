@@ -23,13 +23,15 @@ public class ChangePin extends javax.swing.JFrame {
     public ChangePin() {
         initComponents();
     }
-    
+
     int myAccNum;
+
     public ChangePin(int AccNum) {
         initComponents();
         myAccNum = AccNum;
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -116,6 +118,11 @@ public class ChangePin extends javax.swing.JFrame {
         jButton14.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jButton14.setForeground(new java.awt.Color(255, 255, 255));
         jButton14.setText("Clear");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 51, 153));
@@ -144,14 +151,13 @@ public class ChangePin extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(jLabel14))
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(36, 36, 36)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton14))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtPin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                        .addComponent(txtPin2, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(txtPin, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                    .addComponent(txtPin2))
                 .addGap(173, 173, 173))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -220,38 +226,36 @@ public class ChangePin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
-    Connection conn= null;
-    PreparedStatement ps=null;
-    ResultSet rs=null, rs1=null;
-    Statement st=null;
-    
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null, rs1 = null;
+    Statement st = null;
+
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        
-        
-        if(txtPin.getText().isEmpty() || txtPin2.getText().isEmpty()){
-            
+
+        if (txtPin.getText().isEmpty() || txtPin2.getText().isEmpty()) {
+
             JOptionPane.showMessageDialog(this, "Enter Pin & Confirm Pin!");
-        }else if(!txtPin.getText().equals(txtPin2.getText())){
-            
+        } else if (!txtPin.getText().equals(txtPin2.getText())) {
+
             JOptionPane.showMessageDialog(this, "Pins are not Equal to Try Again!");
-        }else{
+        } else {
             try {
                 String qry = "update account set pin=? where accno=? ";
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
-                PreparedStatement ps=conn.prepareStatement(qry);
-                ps.setInt(1,Integer.valueOf(txtPin.getText()) );
-                ps.setInt(2,myAccNum );
-                
-                if(ps.executeUpdate()==1){
+                PreparedStatement ps = conn.prepareStatement(qry);
+                ps.setInt(1, Integer.valueOf(txtPin.getText()));
+                ps.setInt(2, myAccNum);
+
+                if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "New Pin Updated!");
-                }else{
+                    txtPin.setText("");
+                    txtPin2.setText("");
+                } else {
                     JOptionPane.showMessageDialog(this, "Something Went Wrong!");
                 }
-                
-                
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -259,10 +263,15 @@ public class ChangePin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
-        
+
         new MainMenu(myAccNum).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        txtPin.setText("");
+        txtPin2.setText("");
+    }//GEN-LAST:event_jButton14ActionPerformed
 
     /**
      * @param args the command line arguments
