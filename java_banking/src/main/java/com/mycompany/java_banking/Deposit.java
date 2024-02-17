@@ -35,7 +35,7 @@ public class Deposit extends javax.swing.JFrame {
     
     Connection conn= null;
     PreparedStatement ps=null;
-    ResultSet rs=null;
+    ResultSet rs=null, rs1=null;
     Statement st=null;
     
     int oldBal=0;
@@ -48,10 +48,10 @@ public class Deposit extends javax.swing.JFrame {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
                 st=conn.createStatement();
-                rs=st.executeQuery(qry);
-                if (rs.next()) {
+                rs1=st.executeQuery(qry);
+                if (rs1.next()) {
                     try{
-                      oldBal=  rs.getInt(9);
+                      oldBal=  rs1.getInt(9);
                        
                     }catch(Exception ex){
                         ex.printStackTrace();
