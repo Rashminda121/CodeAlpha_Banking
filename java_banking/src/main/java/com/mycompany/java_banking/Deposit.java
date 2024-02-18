@@ -110,6 +110,7 @@ public class Deposit extends javax.swing.JFrame {
                 ex.printStackTrace();
             }
         }
+        count+=1;
     }
     
     String MyDate=null;
@@ -120,33 +121,66 @@ public class Deposit extends javax.swing.JFrame {
         
     }
 
+//    private void depositMoney() {
+//
+//        try {
+//            getDate();
+//            getCount();
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+//
+//            String qry = "insert into transaction values(?,?,?,?,?)";
+//            PreparedStatement Add = conn.prepareStatement(qry);
+//
+//            Add.setInt(1, count);
+//            Add.setInt(2, myAccNum);
+//            Add.setString(3, "Deposit");
+//            Add.setInt(4, Integer.valueOf(txtAmount.getText()));
+//            Add.setString(5, MyDate);
+//            
+//
+//            int row = Add.executeUpdate();
+//            conn.close();
+//
+//        } catch (Exception ex) {
+//
+////            ex.printStackTrace();
+//              JOptionPane.showMessageDialog(this, "Something Went Wrong! \n"+ex);
+//              
+//        }
+//    }
+    
     private void depositMoney() {
+    try {
+        getDate();
+        getCount();
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
 
-        try {
-            getDate();
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+        String qry = "insert into transaction values(?,?,?,?,?)";
+        PreparedStatement Add = conn.prepareStatement(qry);
 
-            String qry = "insert into transaction values(?,?,?,?,?)";
-            PreparedStatement Add = conn.prepareStatement(qry);
+        Add.setInt(1, count);
+        Add.setInt(2, myAccNum);
+        Add.setString(3, "Deposit");
+        Add.setInt(4, Integer.valueOf(txtAmount.getText()));
+        Add.setString(5, MyDate);
 
-            Add.setInt(1, count);
-            Add.setInt(2, myAccNum);
-            Add.setString(3, "Deposit");
-            Add.setInt(4, Integer.valueOf(txtAmount.getText()));
-            Add.setString(5, MyDate);
-            
+        int rowsAffected = Add.executeUpdate(); // Execute the query
 
-            int row = Add.executeUpdate();
-            conn.close();
-
-        } catch (Exception ex) {
-
-//            ex.printStackTrace();
-              JOptionPane.showMessageDialog(this, "Something Went Wrong! \n"+ex);
-              
-        }
+//        if (rowsAffected > 0) {
+//            JOptionPane.showMessageDialog(this, "Transaction recorded successfully!");
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Failed to record transaction!");
+//        }
+        
+        conn.close();
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Something Went Wrong! \n" + ex);
     }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -315,7 +315,8 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChangePinjButton4ActionPerformed
 
     private void jButton19jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19jButton2ActionPerformed
-        // TODO add your handling code here:
+        new Login().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton19jButton2ActionPerformed
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked

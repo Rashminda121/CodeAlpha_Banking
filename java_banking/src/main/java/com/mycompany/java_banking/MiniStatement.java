@@ -4,7 +4,6 @@
  */
 package com.mycompany.java_banking;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -31,69 +30,34 @@ public class MiniStatement extends javax.swing.JFrame {
         displayTr();
     }
     int myAccNum;
+
     public MiniStatement(int AccNum) {
-        initComponents();
         myAccNum = AccNum;
     }
-    
-    
-    
-    Connection conn= null;
-    PreparedStatement ps=null;
-    ResultSet rs=null;
-    Statement st=null;
-    
-//    private void displayTr(){
-//        
-//            String qry = "SELECT tid,type,amount,tdate FROM transaction WHERE accnum = '"+myAccNum+"' ";
-//
-//            try {
-//                Class.forName("com.mysql.cj.jdbc.Driver");
-//                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
-//                st=conn.createStatement();
-//                rs=st.executeQuery(qry);
-//                statementTbl.setModel(DbUtils.resultSetToTableModel(rs));
-//                
-//            } catch (ClassNotFoundException | SQLException ex) {
-//                ex.printStackTrace();
-//                JOptionPane.showMessageDialog(this, "Error: Unable to connect to database \n" + ex);
-//            } 
-//    }
-    
+
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Statement st = null;
+
     private void displayTr() {
-        
-        String qry = "SELECT tid, type, amount, tdate FROM transaction WHERE accnum = ?";
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
-             PreparedStatement pst = conn.prepareStatement(qry)) {
+        String qry = "SELECT tid,type,amount,tdate FROM transaction WHERE accnum = '" + myAccNum + "' ";
 
-            pst.setInt(1, myAccNum); // Set the parameter for the account number
-            ResultSet rs = pst.executeQuery();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+            st = conn.createStatement();
+            rs = st.executeQuery(qry);
+            stTable.setModel(DbUtils.resultSetToTableModel(rs));
 
-            // Create a DefaultTableModel with column names
-            DefaultTableModel model = new DefaultTableModel(new String[]{"Transaction ID", "Type", "Amount", "Date"}, 0);
-
-            // Populate the model with data from the ResultSet
-            while (rs.next()) {
-                String tid = rs.getString("tid");
-                String type = rs.getString("type");
-                double amount = rs.getDouble("amount");
-                Date tdate = rs.getDate("tdate");
-
-                // Add a row to the model
-                model.addRow(new Object[]{tid, type, amount, tdate});
-            }
-
-            // Set the table model to the JTable
-            statementTbl.setModel(model);
-
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error: Unable to connect to database \n" + ex);
         }
     }
-    
 
+    // Other methods and variables are omitted for brevity
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -111,7 +75,7 @@ public class MiniStatement extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        statementTbl = new javax.swing.JTable();
+        stTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -181,21 +145,18 @@ public class MiniStatement extends javax.swing.JFrame {
             .addGap(0, 24, Short.MAX_VALUE)
         );
 
-        statementTbl.setBackground(new java.awt.Color(255, 255, 255));
-        statementTbl.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        statementTbl.setForeground(new java.awt.Color(0, 51, 153));
-        statementTbl.setModel(new javax.swing.table.DefaultTableModel(
+        stTable.setBackground(new java.awt.Color(255, 255, 255));
+        stTable.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        stTable.setForeground(new java.awt.Color(0, 0, 0));
+        stTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "TID", "Type", "Amount", "Date"
             }
         ));
-        jScrollPane1.setViewportView(statementTbl);
+        jScrollPane1.setViewportView(stTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -271,16 +232,24 @@ public class MiniStatement extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MiniStatement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MiniStatement.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MiniStatement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MiniStatement.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MiniStatement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MiniStatement.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MiniStatement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MiniStatement.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -301,6 +270,6 @@ public class MiniStatement extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable statementTbl;
+    private javax.swing.JTable stTable;
     // End of variables declaration//GEN-END:variables
 }
