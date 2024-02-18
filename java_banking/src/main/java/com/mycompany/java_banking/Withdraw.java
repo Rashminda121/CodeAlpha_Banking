@@ -329,6 +329,8 @@ public class Withdraw extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
                     txtAmount.setText("");
+                    new MainMenu(myAccNum).setVisible(true);
+                    this.dispose();
                 }else{
                     JOptionPane.showMessageDialog(this, "Missing Information!");
                 }
