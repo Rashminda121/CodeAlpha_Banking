@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -75,6 +77,84 @@ public class FastCash extends javax.swing.JFrame {
                 }
             }
     }
+    
+           int count = 0; // Assuming this is declared as an instance variable of the class
+
+    private void getCount() {
+        String qry = "SELECT max(tid) FROM transaction";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+            st = conn.createStatement();
+            rs1 = st.executeQuery(qry);
+
+            if (rs1.next()) {
+                count = rs1.getInt(1); // Assuming the result of max(tid) is an integer
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: Unable to connect to database \n" + ex);
+        } finally {
+            // Close resources like ResultSet, Statement, and Connection
+            try {
+                if (rs1 != null) {
+                    rs1.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        count+=1;
+    }
+    
+    String MyDate=null;
+    public void getDate(){
+        Date d=new Date();
+        SimpleDateFormat s=new SimpleDateFormat("dd-mm-yyyy");
+        MyDate=s.format(d);
+        
+    }
+
+    int value=0;
+    private void withdrawFastMoney() {
+    try {
+        getDate();
+        getCount();
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+
+        String qry = "insert into transaction values(?,?,?,?,?)";
+        PreparedStatement Add = conn.prepareStatement(qry);
+
+        Add.setInt(1, count);
+        Add.setInt(2, myAccNum);
+        Add.setString(3, "Fast Cash");
+        Add.setInt(4, value);
+        Add.setString(5, MyDate);
+
+        int rowsAffected = Add.executeUpdate(); // Execute the query
+
+//        if (rowsAffected > 0) {
+//            JOptionPane.showMessageDialog(this, "Transaction recorded successfully!");
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Failed to record transaction!");
+//        }
+        
+        conn.close();
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Something Went Wrong! \n" + ex);
+    }
+}
+    
+    
     
 
     /**
@@ -326,6 +406,7 @@ public class FastCash extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No Enough Balance!");
 
         } else {
+            value=10000;
             try {
                 String qry = "update account set balance=? where accno=? ";
                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -337,6 +418,7 @@ public class FastCash extends javax.swing.JFrame {
                 if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    withdrawFastMoney();
                     new MainMenu(myAccNum).setVisible(true);
                     this.dispose();
                 } else {
@@ -356,6 +438,7 @@ public class FastCash extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No Enough Balance!");
 
         } else {
+            value=2000;
             try {
                 String qry = "update account set balance=? where accno=? ";
                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -367,6 +450,7 @@ public class FastCash extends javax.swing.JFrame {
                 if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    withdrawFastMoney();
                     new MainMenu(myAccNum).setVisible(true);
                     this.dispose();
                 } else {
@@ -386,6 +470,7 @@ public class FastCash extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No Enough Balance!");
 
         } else {
+            value=500;
             try {
                 String qry = "update account set balance=? where accno=? ";
                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -397,6 +482,7 @@ public class FastCash extends javax.swing.JFrame {
                 if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    withdrawFastMoney();
                     new MainMenu(myAccNum).setVisible(true);
                     this.dispose();
                 } else {
@@ -426,6 +512,7 @@ public class FastCash extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No Enough Balance!");
 
         } else {
+            value=100;
             try {
                 String qry = "update account set balance=? where accno=? ";
                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -437,6 +524,7 @@ public class FastCash extends javax.swing.JFrame {
                 if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    withdrawFastMoney();
                     new MainMenu(myAccNum).setVisible(true);
                     this.dispose();
                 } else {
@@ -455,6 +543,7 @@ public class FastCash extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No Enough Balance!");
 
         } else {
+            value=1000;
             try {
                 String qry = "update account set balance=? where accno=? ";
                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -466,6 +555,7 @@ public class FastCash extends javax.swing.JFrame {
                 if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    withdrawFastMoney();
                     new MainMenu(myAccNum).setVisible(true);
                     this.dispose();
                 } else {
@@ -484,6 +574,7 @@ public class FastCash extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No Enough Balance!");
 
         } else {
+            value=5000;
             try {
                 String qry = "update account set balance=? where accno=? ";
                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -495,6 +586,7 @@ public class FastCash extends javax.swing.JFrame {
                 if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    withdrawFastMoney();
                     new MainMenu(myAccNum).setVisible(true);
                     this.dispose();
                 } else {
