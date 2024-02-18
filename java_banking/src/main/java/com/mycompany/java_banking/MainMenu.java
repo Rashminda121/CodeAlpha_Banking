@@ -4,6 +4,8 @@
  */
 package com.mycompany.java_banking;
 
+import newpackage.MiniStatement;
+
 /**
  *
  * @author Rashminda
@@ -338,7 +340,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void btnMiniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiniActionPerformed
-        new MiniStatement(myAccNum).setVisible(true);
+        new MiniState(myAccNum).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnMiniActionPerformed
 

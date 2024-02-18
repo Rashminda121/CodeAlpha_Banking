@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.java_banking;
+package newpackage;
 
+import com.mycompany.java_banking.MainMenu;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -47,9 +48,13 @@ public class MiniStatement extends javax.swing.JFrame {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
-            st = conn.createStatement();
-            rs = st.executeQuery(qry);
-            stTable.setModel(DbUtils.resultSetToTableModel(rs));
+            ps = conn.prepareStatement(qry);
+            rs = ps.executeQuery();
+            DefaultTableModel model= (DefaultTableModel)stTable.getModel();
+            
+            while(rs.next()){
+                model.addRow(new String[]{rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)});
+            }
 
         } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();
@@ -270,6 +275,6 @@ public class MiniStatement extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable stTable;
+    public javax.swing.JTable stTable;
     // End of variables declaration//GEN-END:variables
 }
