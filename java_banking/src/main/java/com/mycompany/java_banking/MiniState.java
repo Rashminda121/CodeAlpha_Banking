@@ -153,7 +153,7 @@ public class MiniState extends javax.swing.JFrame {
         );
 
         stTable.setBackground(new java.awt.Color(255, 255, 255));
-        stTable.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        stTable.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
         stTable.setForeground(new java.awt.Color(0, 0, 0));
         stTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -164,6 +164,8 @@ public class MiniState extends javax.swing.JFrame {
             }
         ));
         stTable.setAlignmentY(0.9F);
+        stTable.setRowHeight(30);
+        stTable.setRowMargin(2);
         jScrollPane1.setViewportView(stTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
