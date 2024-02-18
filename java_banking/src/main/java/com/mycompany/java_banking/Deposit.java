@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,59 +26,126 @@ public class Deposit extends javax.swing.JFrame {
     public Deposit() {
         initComponents();
     }
-    
+
     int myAccNum;
+
     public Deposit(int AccNum) {
         initComponents();
         myAccNum = AccNum;
-        txtNum.setText(""+myAccNum);
+        txtNum.setText("" + myAccNum);
         getBalance();
     }
-    
-    Connection conn= null;
-    PreparedStatement ps=null;
-    ResultSet rs=null, rs1=null;
-    Statement st=null;
-    
-    int oldBal=0;
-    
-    private void getBalance(){
-        
-            String qry = "SELECT * FROM account WHERE accno = '"+myAccNum+"' ";
 
-            try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
-                st=conn.createStatement();
-                rs1=st.executeQuery(qry);
-                if (rs1.next()) {
-                    try{
-                      oldBal=  rs1.getInt(9);
-                      txtBal.setText("Rs "+oldBal );
-                       
-                    }catch(Exception ex){
-                        ex.printStackTrace();
-                    }
-                    
-                    
-                } else {
-                    JOptionPane.showMessageDialog(this, "Something Went Wrong!");
-                }
-            } catch (ClassNotFoundException | SQLException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Error: Unable to connect to database \n" + ex);
-            } finally {
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null, rs1 = null;
+    Statement st = null;
+
+    int oldBal = 0;
+
+    private void getBalance() {
+
+        String qry = "SELECT * FROM account WHERE accno = '" + myAccNum + "' ";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+            st = conn.createStatement();
+            rs1 = st.executeQuery(qry);
+            if (rs1.next()) {
                 try {
-                    if (conn != null) {
-                        conn.close();
-                    }
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(this, "Something Went Wrong  \n" + ex);
+                    oldBal = rs1.getInt(9);
+                    txtBal.setText("Rs " + oldBal);
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Something Went Wrong!");
             }
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: Unable to connect to database \n" + ex);
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Something Went Wrong  \n" + ex);
+            }
+        }
+    }
+    int count = 0; // Assuming this is declared as an instance variable of the class
+
+    private void getCount() {
+        String qry = "SELECT max(tid) FROM transaction";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+            st = conn.createStatement();
+            rs1 = st.executeQuery(qry);
+
+            if (rs1.next()) {
+                count = rs1.getInt(1); // Assuming the result of max(tid) is an integer
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: Unable to connect to database \n" + ex);
+        } finally {
+            // Close resources like ResultSet, Statement, and Connection
+            try {
+                if (rs1 != null) {
+                    rs1.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
     
-    
+    String MyDate=null;
+    public void getDate(){
+        Date d=new Date();
+        SimpleDateFormat s=new SimpleDateFormat("dd-mm-yyyy");
+        MyDate=s.format(d);
+        
+    }
+
+    private void depositMoney() {
+
+        try {
+            getDate();
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+
+            String qry = "insert into transaction values(?,?,?,?,?)";
+            PreparedStatement Add = conn.prepareStatement(qry);
+
+            Add.setInt(1, count);
+            Add.setInt(2, myAccNum);
+            Add.setString(3, "Deposit");
+            Add.setInt(4, Integer.valueOf(txtAmount.getText()));
+            Add.setString(5, MyDate);
+            
+
+            int row = Add.executeUpdate();
+            conn.close();
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -337,29 +406,31 @@ public class Deposit extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void btnDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositActionPerformed
-        
-        if(txtAmount.getText().isEmpty() || txtAmount.getText().equals(0)){
-            
+
+        if (txtAmount.getText().isEmpty() || txtAmount.getText().equals(0)) {
+
             JOptionPane.showMessageDialog(this, "Enter Valid Amount!");
-        }else{
-            
+        } else {
+
             try {
                 String qry = "update account set balance=? where accno=? ";
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
-                PreparedStatement ps=conn.prepareStatement(qry);
-                ps.setInt(1,oldBal+Integer.valueOf(txtAmount.getText()) );
-                ps.setInt(2,myAccNum );
-                
-                if(ps.executeUpdate()==1){
+                PreparedStatement ps = conn.prepareStatement(qry);
+                ps.setInt(1, oldBal + Integer.valueOf(txtAmount.getText()));
+                ps.setInt(2, myAccNum);
+
+                if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    depositMoney();
                     txtAmount.setText("");
-                }else{
+                    new MainMenu(myAccNum).setVisible(true);
+                    this.dispose();
+                } else {
                     JOptionPane.showMessageDialog(this, "Missing Information!");
                 }
-                
-                
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
