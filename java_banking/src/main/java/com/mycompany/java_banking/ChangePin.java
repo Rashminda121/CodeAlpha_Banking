@@ -67,6 +67,11 @@ public class ChangePin extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("X");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -238,7 +243,7 @@ public class ChangePin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Enter Pin & Confirm Pin!");
         } else if (!txtPin.getText().equals(txtPin2.getText())) {
 
-            JOptionPane.showMessageDialog(this, "Pins are not Equal to Try Again!");
+            JOptionPane.showMessageDialog(this, "Pins are not Equal Try Again!");
         } else {
             try {
                 String qry = "update account set pin=? where accno=? ";
@@ -272,6 +277,10 @@ public class ChangePin extends javax.swing.JFrame {
         txtPin.setText("");
         txtPin2.setText("");
     }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        System.exit(1);
+    }//GEN-LAST:event_jLabel12MouseClicked
 
     /**
      * @param args the command line arguments
