@@ -4,6 +4,19 @@
  */
 package com.mycompany.java_banking;
 
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.apache.commons.dbutils.DbUtils;
+
+
 /**
  *
  * @author Rashminda
@@ -15,7 +28,71 @@ public class MiniStatement extends javax.swing.JFrame {
      */
     public MiniStatement() {
         initComponents();
+        displayTr();
     }
+    int myAccNum;
+    public MiniStatement(int AccNum) {
+        initComponents();
+        myAccNum = AccNum;
+    }
+    
+    
+    
+    Connection conn= null;
+    PreparedStatement ps=null;
+    ResultSet rs=null;
+    Statement st=null;
+    
+//    private void displayTr(){
+//        
+//            String qry = "SELECT tid,type,amount,tdate FROM transaction WHERE accnum = '"+myAccNum+"' ";
+//
+//            try {
+//                Class.forName("com.mysql.cj.jdbc.Driver");
+//                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+//                st=conn.createStatement();
+//                rs=st.executeQuery(qry);
+//                statementTbl.setModel(DbUtils.resultSetToTableModel(rs));
+//                
+//            } catch (ClassNotFoundException | SQLException ex) {
+//                ex.printStackTrace();
+//                JOptionPane.showMessageDialog(this, "Error: Unable to connect to database \n" + ex);
+//            } 
+//    }
+    
+    private void displayTr() {
+        
+        String qry = "SELECT tid, type, amount, tdate FROM transaction WHERE accnum = ?";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+             PreparedStatement pst = conn.prepareStatement(qry)) {
+
+            pst.setInt(1, myAccNum); // Set the parameter for the account number
+            ResultSet rs = pst.executeQuery();
+
+            // Create a DefaultTableModel with column names
+            DefaultTableModel model = new DefaultTableModel(new String[]{"Transaction ID", "Type", "Amount", "Date"}, 0);
+
+            // Populate the model with data from the ResultSet
+            while (rs.next()) {
+                String tid = rs.getString("tid");
+                String type = rs.getString("type");
+                double amount = rs.getDouble("amount");
+                Date tdate = rs.getDate("tdate");
+
+                // Add a row to the model
+                model.addRow(new Object[]{tid, type, amount, tdate});
+            }
+
+            // Set the table model to the JTable
+            statementTbl.setModel(model);
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: Unable to connect to database \n" + ex);
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,7 +111,7 @@ public class MiniStatement extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        statementTbl = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -48,6 +125,11 @@ public class MiniStatement extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("X");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,6 +162,11 @@ public class MiniStatement extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 51, 153));
         jLabel13.setText("< Back");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(0, 51, 153));
 
@@ -94,10 +181,10 @@ public class MiniStatement extends javax.swing.JFrame {
             .addGap(0, 24, Short.MAX_VALUE)
         );
 
-        jTable1.setBackground(new java.awt.Color(255, 255, 255));
-        jTable1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(0, 51, 153));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        statementTbl.setBackground(new java.awt.Color(255, 255, 255));
+        statementTbl.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        statementTbl.setForeground(new java.awt.Color(0, 51, 153));
+        statementTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -105,10 +192,10 @@ public class MiniStatement extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "TID", "Type", "Amount", "Date"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(statementTbl);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -161,6 +248,15 @@ public class MiniStatement extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        new MainMenu(myAccNum).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        System.exit(1);
+    }//GEN-LAST:event_jLabel12MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -205,6 +301,6 @@ public class MiniStatement extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable statementTbl;
     // End of variables declaration//GEN-END:variables
 }
