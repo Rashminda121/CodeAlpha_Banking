@@ -4,6 +4,8 @@
  */
 package com.mycompany.java_banking;
 
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Rashminda
@@ -99,35 +101,38 @@ public class Splash extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-       Splash mySplash= new Splash();
-    mySplash.setVisible(true);
-    
-    // Create a new thread to update the progress bar
-    Thread progressBarThread = new Thread(() -> {
-        try {
-            for (int i = 0; i <= 100; i++) {
-                Thread.sleep(100);
-                mySplash.progbar.setValue(i);
+        // Create and display the splash screen
+        Splash mySplash = new Splash();
+        mySplash.setVisible(true);
+
+        // Create a new thread to update the progress bar
+        Thread progressBarThread = new Thread(() -> {
+            try {
+                for (int i = 0; i <= 100; i++) {
+                    final int progressValue = i; // Create a final variable to hold the value of i
+                    Thread.sleep(100);
+                    SwingUtilities.invokeLater(() -> mySplash.progbar.setValue(progressValue));
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        });
+
+        // Start the progress bar update thread
+        progressBarThread.start();
+
+        
+        try {
+            progressBarThread.join(); // Wait for the progress bar update thread to complete
+            mySplash.dispose(); // Close the splash screen
+
+            // Open the login window
+            java.awt.EventQueue.invokeLater(() -> {
+                new Login().setVisible(true);
+            });
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-    });
-    
-    // Start the progress bar update thread
-    progressBarThread.start();
-
-    // Continue with your main logic
-    // Open login window, etc.
-
-    // Close the splash screen after the progress bar is filled
-    try {
-        progressBarThread.join(); // Wait for the progress bar update thread to complete
-        mySplash.dispose(); // Close the splash screen
-        new Login().setVisible(true); // Open the login window
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
