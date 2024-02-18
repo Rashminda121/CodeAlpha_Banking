@@ -155,6 +155,11 @@ public class MainMenu extends javax.swing.JFrame {
         btnMini.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
         btnMini.setForeground(new java.awt.Color(255, 255, 255));
         btnMini.setText("Mini Statement");
+        btnMini.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMiniActionPerformed(evt);
+            }
+        });
 
         btnChangePin.setBackground(new java.awt.Color(0, 51, 204));
         btnChangePin.setFont(new java.awt.Font("Century Gothic", 0, 22)); // NOI18N
@@ -330,6 +335,11 @@ public class MainMenu extends javax.swing.JFrame {
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
         System.exit(1);
     }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void btnMiniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiniActionPerformed
+        new MiniStatement(myAccNum).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnMiniActionPerformed
 
     /**
      * @param args the command line arguments

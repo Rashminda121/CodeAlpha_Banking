@@ -308,6 +308,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Mini Statement"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMiniActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnChangePin">
           <Properties>
