@@ -4,7 +4,6 @@
  */
 package com.mycompany.java_banking;
 
-import newpackage.MiniStatement;
 
 /**
  *
