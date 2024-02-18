@@ -337,6 +337,8 @@ public class FastCash extends javax.swing.JFrame {
                 if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    new MainMenu(myAccNum).setVisible(true);
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Missing Information!");
                 }
@@ -365,6 +367,8 @@ public class FastCash extends javax.swing.JFrame {
                 if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    new MainMenu(myAccNum).setVisible(true);
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Missing Information!");
                 }
@@ -393,6 +397,8 @@ public class FastCash extends javax.swing.JFrame {
                 if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    new MainMenu(myAccNum).setVisible(true);
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Missing Information!");
                 }
@@ -431,6 +437,8 @@ public class FastCash extends javax.swing.JFrame {
                 if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    new MainMenu(myAccNum).setVisible(true);
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Missing Information!");
                 }
@@ -458,6 +466,8 @@ public class FastCash extends javax.swing.JFrame {
                 if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    new MainMenu(myAccNum).setVisible(true);
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Missing Information!");
                 }
@@ -485,6 +495,8 @@ public class FastCash extends javax.swing.JFrame {
                 if (ps.executeUpdate() == 1) {
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    new MainMenu(myAccNum).setVisible(true);
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Missing Information!");
                 }
