@@ -85,6 +85,7 @@ public class MiniState extends javax.swing.JFrame {
         stTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 153));
 
@@ -162,7 +163,7 @@ public class MiniState extends javax.swing.JFrame {
                 "TID", "Type", "Amount", "Date"
             }
         ));
-        stTable.setIntercellSpacing(new java.awt.Dimension(0, 3));
+        stTable.setAlignmentY(0.9F);
         jScrollPane1.setViewportView(stTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -213,6 +214,7 @@ public class MiniState extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
