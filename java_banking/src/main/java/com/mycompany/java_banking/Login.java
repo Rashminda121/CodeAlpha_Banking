@@ -108,12 +108,10 @@ public class Login extends javax.swing.JFrame {
         txtPin.setBackground(new java.awt.Color(255, 255, 255));
         txtPin.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtPin.setForeground(new java.awt.Color(0, 51, 102));
-        txtPin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         txtAccName.setBackground(new java.awt.Color(255, 255, 255));
         txtAccName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtAccName.setForeground(new java.awt.Color(0, 51, 153));
-        txtAccName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         btnLogin.setBackground(new java.awt.Color(0, 51, 153));
         btnLogin.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
