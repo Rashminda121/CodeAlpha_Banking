@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -78,7 +80,81 @@ public class Withdraw extends javax.swing.JFrame {
     }
     
     
+       int count = 0; // Assuming this is declared as an instance variable of the class
+
+    private void getCount() {
+        String qry = "SELECT max(tid) FROM transaction";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+            st = conn.createStatement();
+            rs1 = st.executeQuery(qry);
+
+            if (rs1.next()) {
+                count = rs1.getInt(1); // Assuming the result of max(tid) is an integer
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: Unable to connect to database \n" + ex);
+        } finally {
+            // Close resources like ResultSet, Statement, and Connection
+            try {
+                if (rs1 != null) {
+                    rs1.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        count+=1;
+    }
     
+    String MyDate=null;
+    public void getDate(){
+        Date d=new Date();
+        SimpleDateFormat s=new SimpleDateFormat("dd-mm-yyyy");
+        MyDate=s.format(d);
+        
+    }
+
+    
+    private void withdrawMoney() {
+    try {
+        getDate();
+        getCount();
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/atmdb", "root", "12345678");
+
+        String qry = "insert into transaction values(?,?,?,?,?)";
+        PreparedStatement Add = conn.prepareStatement(qry);
+
+        Add.setInt(1, count);
+        Add.setInt(2, myAccNum);
+        Add.setString(3, "Withdraw");
+        Add.setInt(4, Integer.valueOf(txtAmount.getText()));
+        Add.setString(5, MyDate);
+
+        int rowsAffected = Add.executeUpdate(); // Execute the query
+
+//        if (rowsAffected > 0) {
+//            JOptionPane.showMessageDialog(this, "Transaction recorded successfully!");
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Failed to record transaction!");
+//        }
+        
+        conn.close();
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Something Went Wrong! \n" + ex);
+    }
+}
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,7 +174,6 @@ public class Withdraw extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jButton19 = new javax.swing.JButton();
         txtBalance = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -167,17 +242,6 @@ public class Withdraw extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(0, 51, 153));
         jLabel14.setText("Your Balance:");
 
-        jButton19.setBackground(new java.awt.Color(255, 255, 255));
-        jButton19.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jButton19.setForeground(new java.awt.Color(0, 51, 153));
-        jButton19.setText("LogOut");
-        jButton19.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton19jButton2ActionPerformed(evt);
-            }
-        });
-
         txtBalance.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         txtBalance.setForeground(new java.awt.Color(0, 51, 153));
         txtBalance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -189,15 +253,9 @@ public class Withdraw extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(234, 234, 234)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(234, 234, 234)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -224,10 +282,8 @@ public class Withdraw extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jButton19))
-                .addGap(22, 22, 22)
+                .addComponent(jLabel10)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(txtBalance))
@@ -241,7 +297,7 @@ public class Withdraw extends javax.swing.JFrame {
                     .addComponent(btnClear))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -286,8 +342,11 @@ public class Withdraw extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,10 +359,6 @@ public class Withdraw extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton19jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton19jButton2ActionPerformed
 
     private void btnWithdrawActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWithdrawActionPerformed
         
@@ -328,6 +383,7 @@ public class Withdraw extends javax.swing.JFrame {
                 if(ps.executeUpdate()==1){
                     JOptionPane.showMessageDialog(this, "Balance Updated!");
                     getBalance();
+                    withdrawMoney(); 
                     txtAmount.setText("");
                     new MainMenu(myAccNum).setVisible(true);
                     this.dispose();
@@ -397,7 +453,6 @@ public class Withdraw extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnWithdraw;
-    private javax.swing.JButton jButton19;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
