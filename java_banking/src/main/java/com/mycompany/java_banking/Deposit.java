@@ -142,7 +142,9 @@ public class Deposit extends javax.swing.JFrame {
 
         } catch (Exception ex) {
 
-            ex.printStackTrace();
+//            ex.printStackTrace();
+              JOptionPane.showMessageDialog(this, "Something Went Wrong! \n"+ex);
+              
         }
     }
 
