@@ -429,7 +429,7 @@ public class SignUp extends javax.swing.JFrame {
         Date date = Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         txtDob.setDate(date);
         
-        txtEdu.setSelectedIndex(1);
+        txtEdu.setSelectedIndex(0);
         
         
         
