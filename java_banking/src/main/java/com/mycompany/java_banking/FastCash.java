@@ -117,7 +117,7 @@ public class FastCash extends javax.swing.JFrame {
     String MyDate=null;
     public void getDate(){
         Date d=new Date();
-        SimpleDateFormat s=new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat s=new SimpleDateFormat("dd-MM-yyyy");
         MyDate=s.format(d);
         
     }
