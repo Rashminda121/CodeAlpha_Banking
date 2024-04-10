@@ -1,4 +1,4 @@
-eeeeeeaccount table
+eeeeeaccount table
 
 CREATE TABLE `atmdb`.`account` (
   `accno` INT NOT NULL AUTO_INCREMENT,
